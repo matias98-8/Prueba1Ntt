@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<jsp:include page='../template/navbar.jsp'/>
 	<div class="container">
 	<h1>Productos</h1>
 			<hr>
@@ -23,12 +24,18 @@
 			<form:label path="nombre" class="col-sm-2 col-form-label">Nombre:</form:label>
 			<form:input type="text" path="nombre" class="form-control"/>
 			<br>
-			<form:label path="empresa" class="col-sm-2 col-form-label">Empresa:</form:label>
-			<form:input type="text" path="empresa" class="form-control"/>
+			<form:label path="descripcion" class="col-sm-2 col-form-label">descripcion:</form:label>
+			<form:input type="text" path="descripcion" class="form-control"/>
 			<br>
-			<form:label path="stock" class="col-sm-2 col-form-label">Stock:</form:label>
-			<form:input type="text" path="stock" class="form-control"/>
+			<form:label path="precio" class="col-sm-2 col-form-label">Precio:</form:label>
+			<form:input type="text" path="precio" class="form-control"/>
 			<br>
+			<form:select class="form-select" path="categorias">
+				<c:forEach var="categoria" items="${listaCategoria}">
+					<form:option value="${categoria.getId()}">${categoria.getNombre()}</form:option>
+				</c:forEach>
+			</form:select>
+			<br>	
 					
 			<a href="/producto" class="btn btn-success" role="button" data-bs-toggle="button">Limpiar</a>
 			<input type="submit" class="btn btn-primary" value="Submit">
@@ -37,14 +44,15 @@
 	
 		<br>
 		<hr>
-		<h2>Crear Productos</h2>
+		<h2>Crear Producto</h2>
 		<table class="table">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
 		      <th scope="col">Nombre</th>
-		      <th scope="col">Empresa</th>
-		      <th scope="col">Stock</th>
+		      <th scope="col">Descripcion</th>
+		      <th scope="col">Precio</th>
+		      <th scope="col">Categoria</th>
 		      <th scope="col-2">Acciones</th>
 		    </tr>
 		  </thead>
@@ -53,8 +61,9 @@
 			    <tr>
 			      <th scope="row">${producto.getId()}</th>
 			      <td>${producto.getNombre()}</td>
-			      <td>${producto.getEmpresa()}</td>
-			      <td>${producto.getStock()}</td>
+			      <td>${producto.getDescripcion()}</td>
+			      <td>${producto.getPrecio()}</td>
+			      <td>${usuario.getCategoria().getCategoria()}</td>
 			 
 			      <td>
 			      <a href="/producto/${producto.getId()}/editar" class="btn btn-primary" role="button" data-bs-toggle="button">Editar</a>

@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+
+
+<body>
+<div class="container">
+<h2>Bienvenidos!!</h2>
+ 	<ul>
+	 	<li><a href="/usuario">Registrate!</a></li>
+
+	 </ul>
+</div>
+
+</body>
+</html>

@@ -15,8 +15,8 @@ public class Usuario {
 	private Long id;
 	
 	private String nombre;
-	private String Apellido;
-	private Integer edad;
+	private String email;
+	private Integer password;
 	
 	
 	public Usuario() {
@@ -24,11 +24,21 @@ public class Usuario {
 	}
 
 
-	public Usuario(String nombre, String apellido, Integer edad) {
+	public Usuario(String nombre, String email, Integer password) {
 		super();
 		this.nombre = nombre;
-		Apellido = apellido;
-		this.edad = edad;
+		this.email = email;
+		this.password = password;
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 
@@ -42,31 +52,27 @@ public class Usuario {
 	}
 
 
-	public String getApellido() {
-		return Apellido;
+	public String getEmail() {
+		return email;
 	}
 
 
-	public void setApellido(String apellido) {
-		Apellido = apellido;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
-	public Integer getEdad() {
-		return edad;
+	public Integer getPassword() {
+		return password;
 	}
 
 
-	public void setEdad(Integer edad) {
-		this.edad = edad;
+	public void setPassword(Integer password) {
+		this.password = password;
 	}
+  
+		
 	
-	
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+	
 }

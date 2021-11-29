@@ -44,4 +44,21 @@ public class ProductoService {
 			productoRepository.save(producto);
 		}		
 	}
+	
+	public List<String> findAllProductosNombres(){
+		return productoRepository.findAllProductosNombres();
+	}
+	
+	public List<Object[]> findAllProductosNombreDescripcion(){
+		return productoRepository.findAllProductosNombreDescripcion();
+	}
+	
+	public List<Producto> obtenerUsuarioWhereId(Long id){
+		return productoRepository.obtenerProductoWhereId(id);
+	}
+	
+	
+	
+	
+	
 }

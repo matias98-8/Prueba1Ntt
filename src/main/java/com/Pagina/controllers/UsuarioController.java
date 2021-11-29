@@ -37,7 +37,7 @@ public class UsuarioController {
 	
 	public String login(@Valid @ModelAttribute("usuario") Usuario usuario)
 	{
-		System.out.println(usuario.getNombre()+" "+usuario.getApellido()+" "+usuario.getEdad());
+		System.out.println(usuario.getNombre()+" "+usuario.getEmail()+" "+usuario.getPassword());
 		
 		
 		usuarioService.insertarUsuario(usuario);

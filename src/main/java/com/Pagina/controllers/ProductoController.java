@@ -1,5 +1,7 @@
 package com.Pagina.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Pagina.models.Producto;
+import com.Pagina.services.CategoriaService;
 import com.Pagina.services.ProductoService;
 
 
@@ -23,18 +26,28 @@ public class ProductoController {
 	@Autowired
 	ProductoService productoService;
 	
+	@Autowired
+	CategoriaService categoriaService;
+	
+	
 	@RequestMapping("")
 	public String producto(@ModelAttribute("producto") Producto producto,
 			Model model) {
 		
 		model.addAttribute("listaProductos", productoService.obtenerListaProductos());
+		model.addAttribute("listaCategoria", categoriaService.obtenerListaCategorias());
+		productoService.findAllProductosNombres();
+		List<Object[]> oProductos = productoService.findAllProductosNombreDescripcion();
+		oProductos.get(0);
+		List<Producto> lProductos=productoService.obtenerUsuarioWhereId(5L);
+		
 		return "producto/producto.jsp";
 	}
 	
 	@RequestMapping("/login")
 	public String login(@Valid @ModelAttribute("producto") Producto producto)
 	{
-		System.out.println(producto.getNombre()+" "+producto.getEmpresa()+" "+producto.getStock());
+		System.out.println(producto.getNombre()+" "+producto.getDescripcion()+" "+producto.getPrecio());
 		
 		
 		productoService.insertarProducto(producto);
@@ -59,6 +72,7 @@ public class ProductoController {
     	System.out.println("editar");
     	Producto producto = productoService.buscarProductoId(id);
     	if(producto !=null) {
+    		model.addAttribute("listaCategorias", categoriaService.obtenerListaCategorias());
 		       model.addAttribute("producto", producto);
 		       return "/producto/editar.jsp";
 		}

@@ -20,11 +20,11 @@
 			<form:label path="nombre" class="col-sm-2 col-form-label">Nombre:</form:label>
 			<form:input type="text" path="nombre" class="form-control"/>
 			<br>
-			<form:label path="empresa" class="col-sm-2 col-form-label">Empresa:</form:label>
-			<form:input type="text" path="empresa" class="form-control"/>
+			<form:label path="descripcion" class="col-sm-2 col-form-label">Descripcion:</form:label>
+			<form:input type="text" path="descripcion" class="form-control"/>
 			<br>
-			<form:label path="stock" class="col-sm-2 col-form-label">Stock:</form:label>
-			<form:input type="text" path="stock" class="form-control"/>
+			<form:label path="precio" class="col-sm-2 col-form-label">Precio:</form:label>
+			<form:input type="text" path="precio" class="form-control"/>
 			<br>
 			<a href="/producto" class="btn btn-success" role="button" data-bs-toggle="button">Volver</a>
 			<input class="btn btn-warning" type="submit" value="Editar">
