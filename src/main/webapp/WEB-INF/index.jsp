@@ -9,7 +9,9 @@
 <div class="container">
 <h2>Bienvenidos!!</h2>
  	<ul>
-	 	<li><a href="/usuario">Registrate!</a></li>
+ 	
+ 		<li><a href="/registro">Registrate!</a></li>
+	 	<li><a href="/login">Ingresa!</a></li>
 
 	 </ul>
 </div>

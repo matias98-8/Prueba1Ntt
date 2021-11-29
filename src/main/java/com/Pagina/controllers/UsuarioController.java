@@ -1,5 +1,6 @@
 package com.Pagina.controllers;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,66 +19,85 @@ import com.Pagina.services.UsuarioService;
 @Controller
 @RequestMapping("/usuario")
 public class UsuarioController {
-	
+
 	@Autowired
 	UsuarioService usuarioService;
-	
-
-	
+	//este modificar
 	@RequestMapping("")
-	public String usuario(@ModelAttribute("usuario") Usuario usuario,
-			Model model) {
-		
+	public String usuario(@ModelAttribute("usuario") Usuario usuario, Model model) {
+
 		model.addAttribute("listaUsuarios", usuarioService.obtenerListaUsuarios());
 		return "usuario/usuario.jsp";
 	}
-	
-	
+
+	// capturar la informacion del formulario
 	@RequestMapping("/login")
-	
-	public String login(@Valid @ModelAttribute("usuario") Usuario usuario)
+	public String login(@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			HttpSession session
+			) 
 	{
-		System.out.println(usuario.getNombre()+" "+usuario.getEmail()+" "+usuario.getPassword());
-		
-		
-		usuarioService.insertarUsuario(usuario);
-		
-		return "redirect:/usuario";
+		System.out.println(email + " " + password);
+
+		boolean resultado = usuarioService.loginUsuario(email, password);
+		if (resultado) {
+			Usuario usuario = usuarioService.findByEmail(email);
+			session.setAttribute("usuario_id", usuario.getId());
+			session.setAttribute("nombre_usuario", usuario.getNombre());
+			return "redirect:/home";
+		} else {
+			return "redirect:/login";
+		}
 	}
-	
+
+	@RequestMapping("/registrarjsp")
+	public String registrarjsp(@ModelAttribute("usuario") Usuario usuario) {
+		return "usuario/registro.jsp";
+	}
+
+	@RequestMapping("/registrar")
+	public String registrar(@Valid @ModelAttribute("usuario") Usuario usuario) {
+	System.out.println("hola");
+		Usuario usuario2 = usuarioService.findByEmail(usuario.getEmail());
+		if(usuario2 == null) {
+		usuarioService.registroUsuario(usuario);
+		}
+		return "redirect:/login";
+	}
+
 	@RequestMapping("/eliminar")
 	public String eliminarUsuario(@RequestParam("id") Long id) {
-		
+
 		Usuario usuario = usuarioService.buscarUsuarioId(id);
-		
-		if(usuario !=null) {
+
+		if (usuario != null) {
 			usuarioService.eliminarUsuarioObjeto(usuario);
 		}
-		
+
 		return "redirect:/usuario";
 	}
-	
-    @RequestMapping("/{id}/editar")
-    public String edit(@PathVariable("id") Long id, Model model) {
-    	System.out.println("editar");
-    	Usuario usuario = usuarioService.buscarUsuarioId(id);
-    	if(usuario !=null) {
-		       model.addAttribute("usuario", usuario);
-		       return "/usuario/editar.jsp";
+
+	@RequestMapping("/{id}/editar")
+	public String edit(@PathVariable("id") Long id, Model model) {
+		System.out.println("editar");
+		Usuario usuario = usuarioService.buscarUsuarioId(id);
+		if (usuario != null) {
+			model.addAttribute("usuario", usuario);
+			return "/usuario/editar.jsp";
 		}
-		
+
 		return "redirect:/usuario";
-    }
-    
-    @RequestMapping(value="/update/{id}", method=RequestMethod.PUT)
-    public String update(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result) {
-    	System.out.println("Update");
-        if (result.hasErrors()) {
-            return "/usuario/editar.jsp";
-        } else {
-        	usuarioService.updateUsuario(usuario);
-            return "redirect:/usuario";
-        }
-    }
-	
+	}
+
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+	public String update(@Valid @ModelAttribute("usuario") Usuario usuario, BindingResult result) {
+		System.out.println("Update");
+		if (result.hasErrors()) {
+			return "/usuario/editar.jsp";
+		} else {
+			usuarioService.updateUsuario(usuario);
+			return "redirect:/usuario";
+		}
+	}
+
 }

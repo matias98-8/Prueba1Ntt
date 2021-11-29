@@ -30,10 +30,12 @@
 			<form:label path="precio" class="col-sm-2 col-form-label">Precio:</form:label>
 			<form:input type="text" path="precio" class="form-control"/>
 			<br>
+			
 			<form:select class="form-select" path="categorias">
+				
 				<c:forEach var="categoria" items="${listaCategoria}">
 					<form:option value="${categoria.getId()}">${categoria.getNombre()}</form:option>
-				</c:forEach>
+				Categoria</c:forEach>
 			</form:select>
 			<br>	
 					
@@ -54,6 +56,7 @@
 		      <th scope="col">Precio</th>
 		      <th scope="col">Categoria</th>
 		      <th scope="col-2">Acciones</th>
+		      <th scope="col-2">Eliminar</th>
 		    </tr>
 		  </thead>
 		  <tbody>

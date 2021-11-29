@@ -20,7 +20,7 @@
 	<h1>Usuarios</h1>
 			<hr>
 	<h2>Crear usuarios</h2>
-		<form:form method="post" action="/usuario/login" modelAttribute="usuario">
+		<form:form method="post" action="/usuario/registrar" modelAttribute="usuario">
 			<input type="hidden" name="_method" value="put">
 			<form:label path="nombre" class="col-sm-2 col-form-label">Nombre:</form:label>
 			<form:input type="text" path="nombre" class="form-control"/>
@@ -29,9 +29,11 @@
 			<form:input type="text" path="email" class="form-control"/>
 			<br>
 			<form:label path="password" class="col-sm-2 col-form-label">Contraseña:</form:label>
-			<form:input type="text" path="password" class="form-control"/>
+			<form:input type="password" path="password" class="form-control"/>
 			<br>
-					
+			<form:label path="passwordConfirmation" class="col-sm-2 col-form-label">Repita su contraseña:</form:label>
+			<form:input type="password" path="passwordConfirmation" class="form-control"/>
+			<br>		
 			<a href="/usuario" class="btn btn-success" role="button" data-bs-toggle="button">Limpiar</a>
 			<input type="submit" class="btn btn-primary" value="Submit">
 			

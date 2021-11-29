@@ -9,6 +9,8 @@ import com.Pagina.models.Usuario;
 
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Long>{
-
+	
+	Usuario findByEmail(String email);
+	
 	List<Usuario> findAll();
 }
