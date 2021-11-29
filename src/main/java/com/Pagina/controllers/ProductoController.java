@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Pagina.models.CategoriaProducto;
 import com.Pagina.models.Producto;
+import com.Pagina.services.CategoriaProductoService;
 import com.Pagina.services.CategoriaService;
 import com.Pagina.services.ProductoService;
+
 
 
 @Controller
@@ -29,6 +32,9 @@ public class ProductoController {
 	@Autowired
 	CategoriaService categoriaService;
 	
+	@Autowired
+	CategoriaProductoService categoriaproductoService;
+	
 	
 	@RequestMapping("")
 	public String producto(@ModelAttribute("producto") Producto producto,
@@ -36,11 +42,12 @@ public class ProductoController {
 		
 		model.addAttribute("listaProductos", productoService.obtenerListaProductos());
 		model.addAttribute("listaCategoria", categoriaService.obtenerListaCategorias());
+		model.addAttribute("listaCategoriaProducto", categoriaproductoService.obtenerListaCategoriaProductos());
 		productoService.findAllProductosNombres();
 		List<Object[]> oProductos = productoService.findAllProductosNombreDescripcion();
 		oProductos.get(0);
 		List<Producto> lProductos=productoService.obtenerUsuarioWhereId(5L);
-		
+		List<CategoriaProducto> lProductosCategorias=categoriaproductoService.obtenerCategoriaProductoCategoriaWhereId(5L);
 		return "producto/producto.jsp";
 	}
 	

@@ -63,7 +63,14 @@
 			      <td>${producto.getNombre()}</td>
 			      <td>${producto.getDescripcion()}</td>
 			      <td>${producto.getPrecio()}</td>
-			      <td>${usuario.getCategoria().getCategoria()}</td>
+			      <td>
+			      
+			      <c:forEach items="${producto.getCategorias()}" var="categoria" >
+			      ${categoria.getNombre()} - 
+			      </c:forEach>
+			      
+			      </td> 
+			      
 			 
 			      <td>
 			      <a href="/producto/${producto.getId()}/editar" class="btn btn-primary" role="button" data-bs-toggle="button">Editar</a>
