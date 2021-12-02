@@ -22,15 +22,20 @@
 	<br>
 	<div class="container card bg-light border-info">
 		<h1>Login</h1>
-		<hr>
-		<h2>Ingreso al sistema</h2>
-
+			<hr>
+	<h2>Ingreso al sistema</h2>
+	
 		<form action="/usuario/login" method="post">
-			<label for="email">Email</label> <input type="text" name="email">
-			<br> <label for="password">Password</label> 
-			<input type="password" name="password" placeholder="intgresa tu password">
-			<br> <input type="submit" value="Ingresar">
+			<label for="username">Nombre:</label>
+			<input type="text" class="form-control" name="username" placeholder="Ingresa tu nombre">
+			<br>
+			<label for="password">Password:</label>
+			<input type="password" class="form-control" name="password" placeholder="Ingresa tu password">
+			<br>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> 
+			<input type="submit" class="btn btn-primary" value= "Ingresar">
 		</form>
+		
 
 
 	</div>

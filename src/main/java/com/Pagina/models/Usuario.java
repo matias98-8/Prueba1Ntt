@@ -1,9 +1,15 @@
 package com.Pagina.models;
 
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,16 +27,34 @@ public class Usuario {
 	@Transient
 	private String passwordConfirmation;
 	
+	
+	
+	@ManyToMany(fetch = FetchType.EAGER)//se cambio type por eager
+	@JoinTable(
+		name="roles_usuarios",//tabla intermedia
+		joinColumns = @JoinColumn(name="usuario_id"),
+		inverseJoinColumns = @JoinColumn(name="role_id")
+	)
+	
+	private List<Role> roles;
+	
+	
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(String nombre, String email, String password) {
+	
+
+	public Usuario(String nombre, String email, String password, String passwordConfirmation, List<Role> roles) {
 		super();
 		this.nombre = nombre;
 		this.email = email;
 		this.password = password;
+		this.passwordConfirmation = passwordConfirmation;
+		this.roles = roles;
 	}
+
+
 
 	public String getPasswordConfirmation() {
 		return passwordConfirmation;
@@ -72,4 +96,13 @@ public class Usuario {
 		this.password = password;
 	}
 
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	
 }

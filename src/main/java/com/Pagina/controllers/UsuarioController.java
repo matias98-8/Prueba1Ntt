@@ -1,5 +1,7 @@
 package com.Pagina.controllers;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -31,7 +33,20 @@ public class UsuarioController {
 	}
 
 	// capturar la informacion del formulario
+	
 	@RequestMapping("/login")
+	public String login(Principal principal, Model model,HttpSession session) {
+		String nombre= principal.getName();
+	
+		Usuario usuario = usuarioService.finByNombre(nombre);
+		model.addAttribute("nombre_usuario", usuario.getNombre());
+		
+		return "home.jsp";
+	
+	}
+
+	
+	/*@RequestMapping("/login")
 	public String login(@RequestParam("email") String email,
 			@RequestParam("password") String password,
 			HttpSession session
@@ -48,7 +63,7 @@ public class UsuarioController {
 		} else {
 			return "redirect:/login";
 		}
-	}
+	}*/
 
 	@RequestMapping("/registrarjsp")
 	public String registrarjsp(@ModelAttribute("usuario") Usuario usuario) {
@@ -57,10 +72,12 @@ public class UsuarioController {
 
 	@RequestMapping("/registrar")
 	public String registrar(@Valid @ModelAttribute("usuario") Usuario usuario) {
-	System.out.println("hola");
+	
 		Usuario usuario2 = usuarioService.findByEmail(usuario.getEmail());
-		if(usuario2 == null) {
-		usuarioService.registroUsuario(usuario);
+		if(usuario2 != null) {
+		System.out.println("Usuario ya existe");
+		}else {
+			usuarioService.persistirUsuarioRol(usuario);
 		}
 		return "redirect:/login";
 	}

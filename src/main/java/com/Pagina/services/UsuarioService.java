@@ -1,13 +1,16 @@
 package com.Pagina.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.Pagina.models.Role;
 import com.Pagina.models.Usuario;
 import com.Pagina.repositories.UsuarioRepository;
 
@@ -16,11 +19,27 @@ public class UsuarioService {
 
 	@Autowired
 	UsuarioRepository usuarioRepository;
-
+	
+	@Autowired
+	RoleService roleService;
+	
+	@Autowired
+	BCryptPasswordEncoder bcpe;
+	
+	
 	// buscar por email
 	public Usuario findByEmail(String email) {
 		return usuarioRepository.findByEmail(email);
+		
 	}
+	
+	public Usuario persistirUsuarioRol(Usuario usuario) {
+		usuario.setPassword(bcpe.encode(usuario.getPassword()));
+		usuario.setRoles(roleService.findByNombre("ROLE_USER"));
+		return usuarioRepository.save(usuario);
+	}
+	
+	
 
 	// insertar usuario
 	public Usuario registroUsuario(Usuario usuario) {
@@ -76,5 +95,11 @@ public class UsuarioService {
 			}
 		}
 	}
+	
+	public Usuario finByNombre(String nombre) {
+		return usuarioRepository.findByNombre(nombre);
+		
+	}
+	
 
 }
